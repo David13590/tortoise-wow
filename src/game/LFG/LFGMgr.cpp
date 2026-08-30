@@ -202,6 +202,56 @@ RolesPriority LFGQueue::getPriority(Classes playerClass, ClassRoles playerRoles)
     }
 }
 
+std::vector<MeetingStoneInfo> LFGQueue::GetDungeonsForPlayer(Player* player) const
+{
+    std::vector<MeetingStoneInfo> result;
+    if (!player)
+        return result;
+
+    uint32 level = player->GetLevel();
+    for (auto const& itr : sObjectMgr.GetGameObjectInfoMap())
+    {
+        GameObjectInfo const& info = itr.second;
+        if (info.type != GAMEOBJECT_TYPE_MEETINGSTONE)
+            continue;
+        if (info.meetingstone.minLevel && level < info.meetingstone.minLevel)
+            continue;
+        if (info.meetingstone.maxLevel && level > info.meetingstone.maxLevel)
+            continue;
+
+        MeetingStoneInfo msi;
+        msi.dungeonId = info.meetingstone.areaID;
+        msi.minLevel  = info.meetingstone.minLevel;
+        msi.maxLevel  = info.meetingstone.maxLevel;
+        msi.area      = info.meetingstone.areaID;
+        msi.name      = info.name;
+        result.push_back(msi);
+    }
+    return result;
+}
+
+ClassRoles LFGQueue::CalculateTalentRoles(Player* player) const
+{
+    if (!player)
+        return LFG_ROLE_NONE;
+    return CalculateRoles(static_cast<Classes>(player->GetClass()));
+}
+
+RolesPriority LFGQueue::GetPriority(Classes classId, ClassRoles roles) const
+{
+    RolesPriority best = LFG_PRIORITY_NONE;
+    for (ClassRoles role : PotentialRoles)
+    {
+        if (roles & role)
+        {
+            RolesPriority p = getPriority(classId, role);
+            if (p > best)
+                best = p;
+        }
+    }
+    return best;
+}
+
 void LFGQueue::UpdateGroup(uint32 groupId)
 {
     QueuedGroupsMap::iterator qGroup = m_QueuedGroups.find(groupId);

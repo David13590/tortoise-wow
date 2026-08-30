@@ -105,13 +105,13 @@ class LFGQueue
         void AddToQueue(Player* leader, uint32 queAreaID);
         void RestoreOfflinePlayer(Player* player);
         bool IsPlayerInQueue(const ObjectGuid& plrGuid) const;
-        // GetDungeonsForPlayer: cmangos LFG returns meeting stone set. Stub returns empty.
-        std::vector<MeetingStoneInfo> GetDungeonsForPlayer(class Player* /*player*/) const { return {}; }
+        // GetDungeonsForPlayer: cmangos LFG returns meeting stone set, built from GAMEOBJECT_TYPE_MEETINGSTONE templates.
+        std::vector<MeetingStoneInfo> GetDungeonsForPlayer(class Player* player) const;
         // AddToQueue 1-arg form (cmangos signature).
         void AddToQueue(class Player* leader) { AddToQueue(leader, 0); }
         // CalculateTalentRoles / GetPriority (cmangos LFG matchmaking).
-        ClassRoles CalculateTalentRoles(class Player* /*player*/) const { return LFG_ROLE_NONE; }
-        RolesPriority GetPriority(Classes /*classId*/, ClassRoles /*roles*/) const { return LFG_PRIORITY_NONE; }
+        ClassRoles CalculateTalentRoles(class Player* player) const;
+        RolesPriority GetPriority(Classes classId, ClassRoles roles) const;
         // bot calls these forms.
         bool IsGroupInQueue(uint32 groupId) const { return m_QueuedGroups.find(groupId) != m_QueuedGroups.end(); }
         void GetGroupQueueInfo(LFGGroupQueueInfo* info, uint32 groupId) const {
