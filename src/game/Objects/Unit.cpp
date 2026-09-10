@@ -1476,12 +1476,6 @@ void Unit::Kill(Unit* pVictim, SpellEntry const *spellProto, bool durabilityLoss
             PetOwnerKilledUnit(pVictim);
         }
     }
-    
-    // 10% XP loss on death in Turtle Mode
-    if (pPlayerVictim && pPlayerVictim->HasChallenge(CHALLENGE_SLOW_AND_STEADY) && !pPlayerVictim->InBattleGround() && !pPlayerTap)
-    {
-        pPlayerVictim->GiveNegativeXP(5, pPlayerVictim); // Percentage
-    }
 
     // 10% durability loss on death
     // clean InHateListOf

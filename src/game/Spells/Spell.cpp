@@ -1511,7 +1511,11 @@ void Spell::DoAllEffectOnTarget(TargetInfo *target)
             m_spellScript->OnHit(this, missInfo);
 
         // Send log damage message to client
+        uint32 const spellId = damageInfo.SpellID;
+        if (m_spellInfo->Id == 20647)
+            damageInfo.SpellID = 5308;
         pCaster->SendSpellNonMeleeDamageLog(&damageInfo);
+        damageInfo.SpellID = spellId;
 
         procEx = CreateProcExtendMask(&damageInfo, missInfo);
         procVictim |= PROC_FLAG_TAKEN_ANY_DAMAGE;
