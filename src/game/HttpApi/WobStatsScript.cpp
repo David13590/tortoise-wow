@@ -8,6 +8,10 @@
 
 namespace HttpApi
 {
+    void EnsureWobStatsScriptsLinked()
+    {
+    }
+
     class WobStatsUnitScript : public UnitScript
     {
     public:

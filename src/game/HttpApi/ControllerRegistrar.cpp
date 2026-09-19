@@ -5,8 +5,11 @@
 
 namespace HttpApi
 {
+    void EnsureWobStatsScriptsLinked();
+
     void RegisterControllers()
     {
+        EnsureWobStatsScriptsLinked();
         new TestController();
         new TransferController(sConfig.GetStringDefault("HttpApi.TransferKey", "Gheor"));
         new WobStatsController(sConfig.GetStringDefault("HttpApi.WobStatsKey", "changeme"));
