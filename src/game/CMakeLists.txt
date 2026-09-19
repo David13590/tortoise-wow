@@ -131,6 +131,11 @@ set (game_SRCS
     HttpApi/TestController.hpp
     HttpApi/TransferController.cpp
     HttpApi/TransferController.hpp
+    HttpApi/WobStatsController.cpp
+    HttpApi/WobStatsController.hpp
+    HttpApi/WobStatsScript.cpp
+    HttpApi/WobStatsTracker.cpp
+    HttpApi/WobStatsTracker.hpp
     LFG/LFGMgr.cpp
     LFT/LFTBotFill.cpp
     LFT/LFTMgr.cpp

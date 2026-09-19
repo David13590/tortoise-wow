@@ -95,6 +95,12 @@ BindIP = "0.0.0.0"
 
 HttpApi.Enable = 0
 
+# HttpApi.WobStatsKey - API key required (X-API-Key header) to query the
+# read-only /wob/stats endpoint (live HP%/DPS/combat state for external tools
+# replacing the WeakAuras+Details+OCR approach).
+# Only relevant if HttpApi.Enable = 1. Change this from the default.
+# HttpApi.WobStatsKey = "changeme"
+
 # UseProcessors. Used processors mask for multi-processors system. (Used only at Windows)
 
 UseProcessors = 0
